@@ -1,11 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
+from constants import AppInfo
+
+AppInfo = AppInfo()
 
 
 class MainUIWindow(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.title("Main")
+        self.title(AppInfo.APPNAME + ' version: ' + str(AppInfo.APPVER))
         self.resizable(width=False, height=False)
         mainmenu = MainUIMenu(self)
 
@@ -16,7 +19,7 @@ class MainUIMenu(tk.Menu):
 
         menubar = tk.Menu(self)
         parent.config(menu=menubar)
-        #menubar.add_command(label="Quit!", command=quit)
+        # menubar.add_command(label="Quit!", command=quit)
         # menubar.add_separator()
         menubar.add_command(label="Quit", command=self.quit)
         menubar.add_command(label="Login", command=self.logmein)
