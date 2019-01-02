@@ -2,7 +2,34 @@ import tkinter as tk
 from tkinter import ttk
 
 
-class LoginWindow(tk.Tk):
+class MainUIWindow(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.title("Main")
+        self.resizable(width=False, height=False)
+        mainmenu = MainUIMenu(self)
+
+
+class MainUIMenu(tk.Menu):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        menubar = tk.Menu(self)
+        parent.config(menu=menubar)
+        #menubar.add_command(label="Quit!", command=quit)
+        # menubar.add_separator()
+        menubar.add_command(label="Quit", command=self.quit)
+        menubar.add_command(label="Login", command=self.logmein)
+
+    def quit(self):
+        quit()
+
+    def logmein(self):
+        login = LoginWindow()
+        login.mainloop()
+
+
+class LoginWindow(tk.Toplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title("Login")
@@ -51,5 +78,8 @@ class LoginFrame(tk.Frame):
 
 
 if __name__ == '__main__':
-    main = LoginWindow()
-    main.mainloop()
+    # Login = LoginWindow()
+    # Login.mainloop()
+
+    Main = MainUIWindow()
+    Main.mainloop()
