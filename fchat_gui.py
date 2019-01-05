@@ -81,8 +81,4 @@ class LoginFrame(tk.Frame):
 
 
 if __name__ == '__main__':
-    # Login = LoginWindow()
-    # Login.mainloop()
-
-    Main = MainUIWindow()
-    Main.mainloop()
+    pass
