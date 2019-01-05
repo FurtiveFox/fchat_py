@@ -26,27 +26,27 @@ class MainUIMenu(tk.Menu):
         quit()
 
     def logmein(self):
-        login = LoginWindow()
+        login = AddAccountWindow()
         login.mainloop()
 
 
-class LoginWindow(tk.Toplevel):
+class AddAccountWindow(tk.Toplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.title("Login")
+        self.title("Add Account")
         self.resizable(width=False, height=False)
-        loginframe = LoginFrame(self)
-        loginframe.grid(padx=50, pady=50)
+        account_frame = AddAccountFrame(self)
+        account_frame.grid(padx=50, pady=50)
 
 
-class LoginFrame(tk.Frame):
+class AddAccountFrame(tk.Frame):
 
     def __init__(self, parent, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
 
         self.inputs = {}
-        self.inputs['save_login'] = tk.BooleanVar()
-        self.inputs['save_login'].set(False)
+        self.inputs['save_password'] = tk.BooleanVar()
+        self.inputs['save_password'].set(False)
 
         self.inputframe = tk.LabelFrame(self, text="Account Information")
 
@@ -60,8 +60,8 @@ class LoginFrame(tk.Frame):
 
         self.inputframe.grid(columnspan=2)
 
-        self.save_login_box = ttk.Checkbutton(self, text="Save Info", variable=self.inputs['save_login'])
-        self.save_login_box.grid(row=2, column=0)
+        self.save_password_box = ttk.Checkbutton(self, text="Save Password", variable=self.inputs['save_password'])
+        self.save_password_box.grid(row=2, column=0)
 
         self.login_button = ttk.Button(self, text="Login", command=self.on_login)
         self.login_button.grid(row=2, column=1, pady=25)
