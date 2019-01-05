@@ -2,8 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from constants import AppInfo
 
-AppInfo = AppInfo()
-
 
 class MainUIWindow(tk.Tk):
     def __init__(self, *args, **kwargs):
