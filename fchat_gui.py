@@ -3,12 +3,12 @@ from tkinter import ttk
 from constants import AppInfo
 
 
-class MainUIWindow(tk.Tk):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.title(AppInfo.APPNAME + ' version: ' + str(AppInfo.APPVER))
-        self.resizable(width=False, height=False)
-        mainmenu = MainUIMenu(self)
+# class MainUIWindow(tk.Tk):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.title(AppInfo.APPNAME + ' version: ' + str(AppInfo.APPVER))
+#         self.resizable(width=False, height=False)
+#         mainmenu = MainUIMenu(self)
 
 
 class MainUIMenu(tk.Menu):
