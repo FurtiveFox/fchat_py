@@ -3,10 +3,11 @@ import sqlite3
 from sqlite3 import Error
 import pickle
 
+
 class Fchat_DB():
 
     def __init__(self):
-        self.db_file = (os.getcwd() + "\\fchat_py.db")
+        self.db_file = os.path.join(os.getcwd(), "fchat_py.db")
         self.conn = None
 
         self.sql_create_accounts_table = """ CREATE TABLE IF NOT EXISTS accounts (
@@ -14,6 +15,8 @@ class Fchat_DB():
                                                 username text NOT NULL,
                                                 password blob
                                                 ); """
+
+        self.sql_retrive_accounts = """ SELECT username, password FROM accounts"""
 
     def open_database(self):
 
@@ -23,7 +26,6 @@ class Fchat_DB():
         except Error as e:
             print(e)
 
-
     def close_database(self):
 
         if self.conn is not None:
@@ -32,7 +34,14 @@ class Fchat_DB():
             except Error as e:
                 print(e)
 
-
+    def get_accounts(self):
+        if self.conn is not None:
+            try:
+                c = self.conn.cursor()
+                c.execute(self.sql_retrive_accounts)
+                print(c.fetchall())
+            except Error as e:
+                print(e)
 
     def initialize_database(self):
         try:
@@ -40,3 +49,13 @@ class Fchat_DB():
             c.execute(self.sql_create_accounts_table)
         except Error as e:
             print(e)
+
+
+db = Fchat_DB()
+db.open_database()
+db.initialize_database()
+cursor = db.conn.cursor()
+cursor.execute("INSERT INTO accounts VALUES(?,?,?)", (None, "username", None))
+db.conn.commit()
+db.get_accounts()
+db.close_database()
