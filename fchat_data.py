@@ -33,7 +33,19 @@ class Fchat_DB:
     def get_accounts(self):
         with self.conn:
             self.cur.execute(self.sql_retrive_accounts)
-            print(self.cur.fetchall())
+            data = self.cur.fetchall()
+            if not data:
+                print("No accounts found")
+                return None
+            accounts = []
+            for row in data:
+                if row[1]:
+                    account = Fchat_Account(row[0],pickle.loads(row[1]))
+
+                else:
+                    account = Fchat_Account(row[0], None)
+                accounts.append(account)
+            return accounts
 
     def initialize_database(self):
         with self.conn:
