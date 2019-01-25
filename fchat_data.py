@@ -4,11 +4,21 @@ from sqlite3 import Error
 import pickle
 
 
-class Fchat_DB():
+class Fchat_DB:
 
     def __init__(self):
         self.db_file = os.path.join(os.getcwd(), "fchat_py.db")
-        self.conn = None
+
+        try:
+            self.conn = sqlite3.connect(self.db_file)
+        except Error as e:
+            print(e)
+
+        try:
+            self.cur = self.conn.cursor()
+        except Error as e:
+            print(e)
+
 
         self.sql_create_accounts_table = """ CREATE TABLE IF NOT EXISTS accounts (
                                                 id integer PRIMARY KEY,
@@ -18,44 +28,28 @@ class Fchat_DB():
 
         self.sql_retrive_accounts = """ SELECT username, password FROM accounts"""
 
-    def open_database(self):
 
-        try:
-            self.conn = sqlite3.connect(self.db_file)
-            print(sqlite3.version)
-        except Error as e:
-            print(e)
-
-    def close_database(self):
-
-        if self.conn is not None:
-            try:
-                self.conn.close()
-            except Error as e:
-                print(e)
 
     def get_accounts(self):
-        if self.conn is not None:
-            try:
-                c = self.conn.cursor()
-                c.execute(self.sql_retrive_accounts)
-                print(c.fetchall())
-            except Error as e:
-                print(e)
+        with self.conn:
+            self.cur.execute(self.sql_retrive_accounts)
+            print(self.cur.fetchall())
 
     def initialize_database(self):
-        try:
-            c = self.conn.cursor()
-            c.execute(self.sql_create_accounts_table)
-        except Error as e:
-            print(e)
+        with self.conn:
+            self.cur.execute(self.sql_create_accounts_table)
+
+    def insert_account(self, account):
+        with self.conn:
+            self.cur.execute("INSERT INTO accounts VALUES(?,?,?)", (None, account.account_name, pickle.dumps(account.password)))
 
 
-db = Fchat_DB()
-db.open_database()
-db.initialize_database()
-cursor = db.conn.cursor()
-cursor.execute("INSERT INTO accounts VALUES(?,?,?)", (None, "username", None))
-db.conn.commit()
-db.get_accounts()
-db.close_database()
+class Fchat_Account:
+
+    def __init__(self, account_name, password):
+        self.account_name = account_name
+        self.password = password
+
+
+
+
