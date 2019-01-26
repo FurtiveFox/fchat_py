@@ -22,11 +22,11 @@ class Fchat_DB:
 
         self.sql_create_accounts_table = """ CREATE TABLE IF NOT EXISTS accounts (
                                                 id integer PRIMARY KEY,
-                                                username text NOT NULL,
+                                                accountname text NOT NULL,
                                                 password blob
                                                 ); """
 
-        self.sql_retrive_accounts = """ SELECT username, password FROM accounts"""
+        self.sql_retrive_accounts = """ SELECT accountname, password FROM accounts"""
 
 
 
