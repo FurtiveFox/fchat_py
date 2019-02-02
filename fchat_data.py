@@ -63,5 +63,9 @@ class Fchat_Account:
         self.password = password
 
 
+class Fchat_Character:
+    def __init__(self, name, flist_id):
+        self.name = name
+        self.flist_id = flist_id
 
 
