@@ -9,7 +9,7 @@ class FlistEndpoints:
 
     """ https://toys.in.newtsin.space/api-docs/ """
 
-    DOMAIN = "https://f-list.net"
+    DOMAIN = "https://www.f-list.net"
     GETAPITICKET = "/json/getApiTicket.php"
     MAPPINGLIST = "/json/api/mapping-list.php"
     CHARACTERDATA = "/json/api/character-data.php"
