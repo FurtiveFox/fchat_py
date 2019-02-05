@@ -23,7 +23,7 @@ class FlistAPI:
         """Authenticates with f-list web api to get full acount info"""
         payload = {'account': self.account_name, 'password': self.password, 'new_character_list': "true"}
         try:
-            response = self.s.post(E.DOMAIN + E.GETAPITICKET, params=payload)
+            response = self.s.post(E.DOMAIN + E.GETAPITICKET, data=payload)
             print(response.url)
             response_dict = json.loads(response.text)
             self.acct_dict = response_dict
@@ -33,7 +33,7 @@ class FlistAPI:
     def get_ticket(self):
         """Authenticates with f-list web api and requests minimal info"""
         payload = {'account': self.account_name, 'password': self.password, 'no_characters': 'true', 'no_friends': 'true', 'no_bookmarks': 'true'}
-        response = self.s.post(E.DOMAIN + E.GETAPITICKET, params=payload)
+        response = self.s.post(E.DOMAIN + E.GETAPITICKET, data=payload)
         print(response.url)
         response_dict = json.loads(response.text)
         self.ticket = response_dict['ticket']
@@ -41,7 +41,7 @@ class FlistAPI:
     def get_mapping_data(self):
 
         payload = {}
-        response = self.s.post(E.DOMAIN + E.MAPPINGLIST, params=payload)
+        response = self.s.post(E.DOMAIN + E.MAPPINGLIST, data=payload)
         response_dict = json.loads(response.text)
         return response_dict
 
