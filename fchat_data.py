@@ -26,6 +26,44 @@ class Fchat_DB:
                                                 password blob
                                                 ); """
 
+        self.sql_create_characters_table = """ CREATE TABLE IF NOT EXISTS characters(
+                                                flistid integer PRIMARY KEY,
+                                                name text NOT NULL,
+                                                gender text
+                                                ); """
+
+        self.sql_create_kinks_table = """ CREATE TABLE IF NOT EXISTS kinks(
+                                            id integer PRIMARY KEY,
+                                            name text,
+                                            description text,
+                                            group_id integer
+                                            ); """
+
+        self.sql_create_kink_groups_table = """ CREATE TABLE IF NOT EXISTS kink_groups(
+                                                    id integer PRIMARY KEY,
+                                                    name text
+                                                    ); """
+
+        self.sql_create_infotags_table = """ CREATE TABLE IF NOT EXISTS infotags(
+                                                id integer PRIMARY KEY,
+                                                name text,
+                                                type text,
+                                                list text,
+                                                group_id integer
+                                                ); """
+
+        self.sql_create_infotag_groups_table = """ CREATE TABLE IF NOT EXISTS infotag_groups(
+                                                        id integer PRIMARY KEY,
+                                                        name text
+                                                        ); """
+
+        self.sql_create_listitems_table = """ CREATE TABLE IF NOT EXISTS listitems(
+                                                    id integer PRIMARY KEY,
+                                                    name text,
+                                                    value text
+                                                    ); """
+
+
         self.sql_retrive_accounts = """ SELECT accountname, password FROM accounts"""
 
 
@@ -50,6 +88,12 @@ class Fchat_DB:
     def initialize_database(self):
         with self.conn:
             self.cur.execute(self.sql_create_accounts_table)
+            self.cur.execute(self.sql_create_characters_table)
+            self.cur.execute(self.sql_create_kinks_table)
+            self.cur.execute(self.sql_create_kink_groups_table)
+            self.cur.execute(self.sql_create_infotags_table)
+            self.cur.execute(self.sql_create_infotag_groups_table)
+
 
     def insert_account(self, account):
         with self.conn:

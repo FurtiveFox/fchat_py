@@ -1,13 +1,8 @@
 import requests
 import json
-import urllib
-import urllib.request
-import urllib.parse
 
 from constants import AppInfo as A
 from constants import FlistEndpoints as E
-
-
 
 
 class FlistAPI:
@@ -47,15 +42,14 @@ class FlistAPI:
 
     def get_character_data(self, character):
         payload = {'account': self.account_name, 'ticket': self.ticket, 'name': character}
-        response = requests.post(E.DOMAIN + E.CHARACTERDATA, data=payload)
+        response = self.s.post(E.DOMAIN + E.CHARACTERDATA, data=payload)
         print(response.url)
         response_dict = json.loads(response.text)
         return response_dict
 
     def get_character_friends(self, character):
         payload = {'account': self.account_name, 'ticket': self.ticket, 'name': character}
-        body = {'name': character}
-        response = requests.post(E.DOMAIN + E.CHARACTERFRIENDS, data=payload)
+        response = self.s.post(E.DOMAIN + E.CHARACTERFRIENDS, data=payload)
         print(response.url)
         response_dict = json.loads(response.text)
         return response_dict
